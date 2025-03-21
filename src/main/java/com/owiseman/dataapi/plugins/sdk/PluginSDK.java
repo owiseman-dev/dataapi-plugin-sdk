@@ -1,5 +1,7 @@
 package com.owiseman.dataapi.plugins.sdk;
 
+import java.util.Map;
+
 /**
  * 插件SDK接口定义
  * 其他语言实现插件时可以参考此接口
