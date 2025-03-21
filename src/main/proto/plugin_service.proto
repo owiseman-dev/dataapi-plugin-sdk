@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.owiseman.dataapi.proto";
+option java_outer_classname = "PluginServiceProto";
+
+package plugin;
+
+// 插件服务定义
+service PluginService {
+  // 注册插件
+  rpc RegisterPlugin (PluginRegistration) returns (RegistrationResponse) {}
+  
+  // 心跳检测
+  rpc Heartbeat (HeartbeatRequest) returns (HeartbeatResponse) {}
+  
+  // 获取插件状态
+  rpc GetStatus (StatusRequest) returns (StatusResponse) {}
+  
+  // 执行插件命令
+  rpc ExecuteCommand (CommandRequest) returns (CommandResponse) {}
+  
+  // 停止插件
+  rpc StopPlugin (StopRequest) returns (StopResponse) {}
+}
+
+// 插件注册请求
+message PluginRegistration {
+  string name = 1;
+  string version = 2;
+  string type = 3;
+  string description = 4;
+  string host = 5;
+  int32 port = 6;
+}
+
+// 注册响应
+message RegistrationResponse {
+  string plugin_id = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+// 心跳请求
+message HeartbeatRequest {
+  string plugin_id = 1;
+  string status_info = 2;
+}
+
+// 心跳响应
+message HeartbeatResponse {
+  bool received = 1;
+  int64 server_time = 2;
+}
+
+// 状态请求
+message StatusRequest {
+  string plugin_id = 1;
+}
+
+// 状态响应
+message StatusResponse {
+  string status = 1;
+  string details = 2;
+  int64 uptime = 3;
+}
+
+// 命令请求
+message CommandRequest {
+  string plugin_id = 1;
+  string command = 2;
+  map<string, string> parameters = 3;
+}
+
+// 命令响应
+message CommandResponse {
+  bool success = 1;
+  string result = 2;
+  string error_message = 3;
+}
+
+// 停止请求
+message StopRequest {
+  string plugin_id = 1;
+}
+
+// 停止响应
+message StopResponse {
+  bool success = 1;
+  string message = 2;
+}
