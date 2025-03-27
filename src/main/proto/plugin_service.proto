@@ -26,6 +26,17 @@ service PluginService {
   // 查找和更新的方法
   rpc FindPlugin(FindPluginRequest) returns (FindPluginResponse);
   rpc UpdatePlugin(UpdatePluginRequest) returns (UpdatePluginResponse);
+
+   rpc GetPluginByName(GetPluginByNameRequest) returns (GetPluginByNameResponse);
+}
+
+message GetPluginByNameRequest {
+  string name = 1;
+}
+
+message GetPluginByNameResponse {
+  bool found = 1;
+  PluginInfo plugin = 2;
 }
 
 message FindPluginRequest {
