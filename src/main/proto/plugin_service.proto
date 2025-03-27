@@ -22,7 +22,45 @@ service PluginService {
   
   // 停止插件
   rpc StopPlugin (StopRequest) returns (StopResponse) {}
+
+  // 查找和更新的方法
+  rpc FindPlugin(FindPluginRequest) returns (FindPluginResponse);
+  rpc UpdatePlugin(UpdatePluginRequest) returns (UpdatePluginResponse);
 }
+
+message FindPluginRequest {
+  string name = 1;
+  string type = 2;
+}
+
+message FindPluginResponse {
+  bool found = 1;
+  PluginInfo plugin = 2;
+}
+
+message PluginInfo {
+  string plugin_id = 1;
+  string name = 2;
+  string version = 3;
+  string type = 4;
+  string description = 5;
+  string host = 6;
+  int32 port = 7;
+  string status = 8;
+}
+
+message UpdatePluginRequest {
+  string plugin_id = 1;
+  string status = 2;
+  string host = 3;
+  int32 port = 4;
+}
+
+message UpdatePluginResponse {
+  bool success = 1;
+  string message = 2;
+}
+
 
 // 插件注册请求
 message PluginRegistration {
